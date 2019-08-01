@@ -15,7 +15,7 @@ class LambdaDemo extends Component {
 
     this.setState({ loading: true })
 
-    fetch("http://localhost:9000/" + api)
+    fetch("https://silly-kilby-532cdd.netlify.com/.netlify/functions/" + api)
       .then(response => response.json())
       .then(json => this.setState({ loading: false, msg: json.msg }))
   }
@@ -48,7 +48,7 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
-          <p><button onClick={this.handleIdentity}>User Status</button></p>
+          <p><button onClick={this.handleIdentity}>User</button></p>
           <img src={logo} className="App-logo" alt="logo" />
           <p>
             Edit <code>src/App.js</code> and save to reload.
