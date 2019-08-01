@@ -1,6 +1,8 @@
 import React, { Component } from "react"
+import netlifyIdentity from "netlify-identity-widget"
 import logo from "./logo.svg"
 import "./App.css"
+
 
 class LambdaDemo extends Component {
   constructor(props) {
@@ -12,7 +14,8 @@ class LambdaDemo extends Component {
     e.preventDefault()
 
     this.setState({ loading: true })
-    fetch("/.netlify/functions/" + api)
+
+    fetch("http://localhost:9000/" + api)
       .then(response => response.json())
       .then(json => this.setState({ loading: false, msg: json.msg }))
   }
@@ -32,10 +35,20 @@ class LambdaDemo extends Component {
 }
 
 class App extends Component {
+
+  componentDidMount() {
+    netlifyIdentity.init();
+  }
+  handleIdentity = (e) => {
+    e.preventDefault();
+    netlifyIdentity.open();
+  }
+  
   render() {
     return (
       <div className="App">
         <header className="App-header">
+          <p><button onClick={this.handleIdentity}>User Status</button></p>
           <img src={logo} className="App-logo" alt="logo" />
           <p>
             Edit <code>src/App.js</code> and save to reload.
