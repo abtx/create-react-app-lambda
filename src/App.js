@@ -19,17 +19,16 @@ class LambdaDemo extends Component {
     }
     return Promise.resolve(headers);
   }
+
   
   handleClick = api => e => {
     e.preventDefault()
 
     this.setState({ loading: true })
 
-    this.generateHeaders().then((headers) => {
     fetch("https://silly-kilby-532cdd.netlify.com/.netlify/functions/" + api)
       .then(response => response.json())
       .then(json => this.setState({ loading: false, msg: json.msg }))
-    })
   }
 
   render() {
@@ -38,6 +37,9 @@ class LambdaDemo extends Component {
     return (
       <p>
         <button onClick={this.handleClick("hello")}>{loading ? "Loading..." : "Call Lambda"}</button>
+
+        <button onClick={this.handleClick("fauna")}>{loading ? "Loading..." : "Try Fauna"}</button>
+
         <button onClick={this.handleClick("async-dadjoke")}>{loading ? "Loading..." : "Call Async Lambda"}</button>
         <br />
         <span>{msg}</span>
